@@ -1,0 +1,68 @@
+{
+  "name": "hubot-ibmcloud-cloudant",
+  "version": "0.0.1",
+  "description": "hubot-ibmcloud-cloudant provides Bluemix Cloudant management functionality.",
+  "main": "index.js",
+  "respository": {
+    "url": "https://github.com/ibm-cloud-solutions/hubot-ibmcloud-cloudant",
+    "type": "git"
+  },
+  "scripts": {
+    "start": "source config/env && hubot -a shell",
+    "slack": "source config/env && hubot -a slack",
+    "facebook": "source config/env && hubot -a fb",
+    "postinstall": "initDb src/nlc/NLC.json",
+    "lint": "eslint src/**/*.js test/*.js index.js",
+    "test": ". test/.env && mocha test",
+    "coverage": ". test/.env && istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+  },
+  "keywords": [
+    "hubot",
+    "hubot-scripts",
+    "bluemix",
+    "cloud",
+    "slack",
+    "cloudant"
+  ],
+  "author": "ibm-cloud-solutions",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "coffee-script": "^1.10.0",
+    "coveralls": "^2.11.12",
+    "eslint": "^2.9.0",
+    "eslint-config-strongloop": "^2.0.1",
+    "hubot": "^2.19.0",
+    "hubot-fb": "^3.0.0",
+    "hubot-help": "^0.2.0",
+    "hubot-ibmcloud-formatter": ">=0.0.29",
+    "hubot-shell": "^1.0.2",
+    "hubot-slack": "^4.0.2",
+    "hubot-test-helper": "^1.4.4",
+    "istanbul": "0.4.0",
+    "mocha": "^2.4.5",
+    "mocha-sprinkles": "^2.2.1",
+    "nock": "^8.0.0",
+    "rewire": "2.5.1"
+  },
+  "peerDependencies": {
+    "hubot": "^2.19.0"
+  },
+  "engines": {
+    "node": ">= 4.2.0"
+  },
+  "files": [
+    "src",
+    "index.js"
+  ],
+  "dependencies": {
+    "hubot-ibmcloud-activity-emitter": ">=0.0.2",
+    "hubot-ibmcloud-cognitive-lib": ">=0.0.18",
+    "hubot-ibmcloud-utils": ">=0.0.8",
+    "cloudant": "^1.4.2",
+    "dateformat": "^1.0.12",
+    "hubot-conversation": "^1.1.1",
+    "i18n-2": "*",
+    "string-length": "^1.0.1"
+  }
+}

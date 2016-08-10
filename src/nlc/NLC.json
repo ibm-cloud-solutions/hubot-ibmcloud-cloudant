@@ -1,0 +1,132 @@
+{
+	"name": "IBMcloudCloudant",
+	"version": "1.0",
+	"classes":[
+		{
+			"class": "bluemix.cloudant.help",
+	  		"emittarget": "bluemix.cloudant.help",
+	  		"texts": [
+		  		"I want help with cloudant databases.",
+		  		"Can you help me with cloudant?",
+		  		"Please help me with cloudant databases.",
+		  		"help cloudant"
+	  		]
+  		},
+  		{
+	  		"class": "bluemix.cloudant.listdatabases",
+	  		"emittarget": "bluemix.cloudant.listdatabases",
+	  		"texts": [
+	  			"Show me the cloudant databases",
+				"Show me my databases.",
+				"List cloudant",
+				"I want to see my bluemix cloudant databases",
+				"I’d like to get a list of my databases in cloudant"
+  			]
+  		},
+  		{
+	  		"class": "bluemix.cloudant.databaseinfo",
+	  		"emittarget": "bluemix.cloudant.databaseinfo",
+	  		"texts": [
+	  			"Show me details for my cloudant database",
+				"I'd like to see information for the database",
+				"cloudant info",
+				"I want to see my detailed information for my cloudant database",
+				"Give me database details"
+  			],
+	       "parameters" : [
+			   {
+			       "name": "databasename",
+			       "type": "entity",
+			       "prompt": "OK. What is the name of the database for which you want detailed?"
+			   }
+	       ]
+  		},
+  		{
+	  		"class": "bluemix.cloudant.createdatabase",
+	  		"emittarget": "bluemix.cloudant.createdatabase",
+	  		"texts": [
+	  			"Create a new cloudant database",
+				"I'd like to make a cloudant database",
+				"cloudant create",
+				"I want to make a database"
+  			],
+	       "parameters" : [
+			   {
+			       "name": "newdatabasename",
+			       "type": "entity",
+			       "prompt": "OK. What is the name of the database you want to create?"
+			   }
+	       ]
+  		},
+  		{
+	  		"class": "bluemix.cloudant.setpermissions",
+	  		"emittarget": "bluemix.cloudant.setpermissions",
+	  		"texts": [
+	  			"Set permissions to my cloudant database",
+				"I need to grant a user access to my database",
+				"cloudant set permissions",
+				"I'd like to allow a user permission to access a cloudant database"
+  			],
+	       "parameters" : [
+			   {
+			       "name": "databasename",
+			       "type": "entity",
+			       "prompt": "OK. What is the name of the database you want to set permissions on?"
+			   },
+			   {
+			       "name": "username",
+			       "type": "entity",
+			       "required": false,
+			       "prompt": "OK. What is the API key or user name to want to set permissions for?"
+			   }
+	       ]
+  		},
+  		{
+	  		"class": "bluemix.cloudant.listviews",
+	  		"emittarget": "bluemix.cloudant.listviews",
+	  		"texts": [
+	  			"Show me the cloudant database views",
+				"Show me my views.",
+				"List cloudant database views",
+				"I want to see all the views for my bluemix cloudant database",
+				"I’d like to get a list of views for my database in cloudant"
+  			],
+	       "parameters" : [
+			   {
+			       "name": "databasename",
+			       "type": "entity",
+			       "prompt": "OK. What is the name of the database you want to show views for?"
+			   }
+	       ]
+  		},
+  		{
+	  		"class": "bluemix.cloudant.runview",
+	  		"emittarget": "bluemix.cloudant.runview",
+	  		"texts": [
+	  			"Run a cloudant database view",
+				"I'd like to execute a view against my cloudant database",
+				"cloudant view run",
+				"I want to execute a view"
+  			],
+	       "parameters" : [
+			   {
+			       "name": "databasename",
+			       "type": "entity",
+			       "prompt": "OK. What is the name of the database you want to run the view against?"
+			   },
+			   {
+			       "name": "viewname",
+			       "type": "entity",
+			       "required": false,
+			       "prompt": "OK. What is the name of the view you want to run?"
+			   }
+	       ]
+  		}
+   ],
+   "parameter.values" : [
+       {
+           "name": "databasename",
+           "values": []
+       }
+   ]
+}
