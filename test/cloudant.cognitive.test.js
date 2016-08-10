@@ -30,7 +30,7 @@ i18n.setLocale('en');
 
 // Passing arrow functions to mocha is discouraged: https://mochajs.org/#arrow-functions
 // return promises from mocha tests rather than calling done() - http://tobyho.com/2015/12/16/mocha-with-promises/
-describe('Interacting with Cloudant via Slack', function() {
+describe('Interacting with Cloudant through natural language interface', function() {
 
 	let room;
 
@@ -73,7 +73,7 @@ describe('Interacting with Cloudant via Slack', function() {
 	});
 
 	context('user calls `Show my cloudant databases`', function(done) {
-		it('should send a slack event with a list of cloudant databases', function(done) {
+		it('should send an event with a list of cloudant databases', function(done) {
 
 			room.robot.on('ibmcloud.formatter', (event) => {
 				if (event.message) {
@@ -95,7 +95,7 @@ describe('Interacting with Cloudant via Slack', function() {
 	});
 
 	context('user calls `Show me details for my cloudant database [database]`', function(done) {
-		it('should send a slack event with details of a cloudant database', function(done) {
+		it('should send an event with details of a cloudant database', function(done) {
 
 			room.robot.on('ibmcloud.formatter', (event) => {
 				if (event.message) {
@@ -116,7 +116,7 @@ describe('Interacting with Cloudant via Slack', function() {
 	});
 
 	context('user calls `Show me details for my cloudant database`', function(done) {
-		it('should send a slack event with missing databasename error', function(done) {
+		it('should send an event with missing databasename error', function(done) {
 
 			room.robot.on('ibmcloud.formatter', (event) => {
 				expect(event.message).to.be.a('string');
@@ -131,7 +131,7 @@ describe('Interacting with Cloudant via Slack', function() {
 	});
 
 	context('user calls `I want to create cloudant database named [database]`', function(done) {
-		it('should send a slack event with results of cloudant database creation', function(done) {
+		it('should send an event with results of cloudant database creation', function(done) {
 
 			room.robot.on('ibmcloud.formatter', (event) => {
 				if (event.message) {
@@ -153,7 +153,7 @@ describe('Interacting with Cloudant via Slack', function() {
 	});
 
 	context('user calls `I want to create cloudant database named`', function(done) {
-		it('should send a slack event with missing newdatabasename error', function(done) {
+		it('should send an event with missing newdatabasename error', function(done) {
 
 			room.robot.on('ibmcloud.formatter', (event) => {
 				expect(event.message).to.be.a('string');
@@ -168,7 +168,7 @@ describe('Interacting with Cloudant via Slack', function() {
 	});
 
 	context('user calls `I want to set permissions to cloudant database [database] for user [username]`', function(done) {
-		it('should send a slack event with results of cloudant set permissions', function(done) {
+		it('should send an event with results of cloudant set permissions', function(done) {
 
 			var replyFn = function(msg) {
 				if (msg.includes(i18n.__('cloudant.setpermissions.user.prompt', mockUtils.RESOURCES.DATABASES[0]))) {
@@ -211,7 +211,7 @@ describe('Interacting with Cloudant via Slack', function() {
 	});
 
 	context('user calls `I want to set permissions to cloudant database for user [username]`', function(done) {
-		it('should send a slack event with missing databasename error', function(done) {
+		it('should send an event with missing databasename error', function(done) {
 
 			room.robot.on('ibmcloud.formatter', (event) => {
 				expect(event.message).to.be.a('string');
@@ -226,7 +226,7 @@ describe('Interacting with Cloudant via Slack', function() {
 	});
 
 	context('user calls `Show my views for cloudant database [database]`', function(done) {
-		it('should send a slack event with a list of cloudant database views', function(done) {
+		it('should send an event with a list of cloudant database views', function(done) {
 
 			room.robot.on('ibmcloud.formatter', (event) => {
 				if (event.message) {
@@ -251,7 +251,7 @@ describe('Interacting with Cloudant via Slack', function() {
 	});
 
 	context('user calls `Show my views for cloudant database [database]`', function(done) {
-		it('should send a slack event with missing databasename error', function(done) {
+		it('should send an event with missing databasename error', function(done) {
 
 			room.robot.on('ibmcloud.formatter', (event) => {
 				expect(event.message).to.be.a('string');
@@ -266,7 +266,7 @@ describe('Interacting with Cloudant via Slack', function() {
 	});
 
 	context('user calls `I\'d like to execute a view [view] against my cloudant database [database]`', function(done) {
-		it('should send a slack event with results of running view', function(done) {
+		it('should send an event with results of running view', function(done) {
 
 			var replyFn = function(msg) {
 				if (msg.includes(i18n.__('cloudant.runview.keys.prompt', mockUtils.RESOURCES.VIEWS[0].view, 'none', 'exit'))) {
@@ -299,7 +299,7 @@ describe('Interacting with Cloudant via Slack', function() {
 	});
 
 	context('user calls `I\'d like to execute a view [view] against my cloudant database [database]; bad view`', function(done) {
-		it('should send a slack event with results of running view', function(done) {
+		it('should send an event with results of running view', function(done) {
 
 			var replyFn = function(msg) {
 				if (msg.includes(i18n.__('cloudant.runview.view.prompt'))) {
@@ -335,7 +335,7 @@ describe('Interacting with Cloudant via Slack', function() {
 	});
 
 	context('user calls `I\'d like to execute a view [view] against my cloudant database`', function(done) {
-		it('should send a slack event with missing databasename error', function(done) {
+		it('should send an event with missing databasename error', function(done) {
 
 			room.robot.on('ibmcloud.formatter', (event) => {
 				expect(event.message).to.be.a('string');

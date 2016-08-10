@@ -51,7 +51,7 @@ function getError(errorString) {
 
 // Passing arrow functions to mocha is discouraged: https://mochajs.org/#arrow-functions
 // return promises from mocha tests rather than calling done() - http://tobyho.com/2015/12/16/mocha-with-promises/
-describe('Interacting with Cloudant via Slack: Bad Env Error Testing', function() {
+describe('Interacting with Cloudant through regular expression interface: Bad Env Error Testing', function() {
 
 	let room;
 	let saveEndpoint;
@@ -94,7 +94,7 @@ describe('Interacting with Cloudant via Slack: Bad Env Error Testing', function(
 	});
 
 	context('user calls `cloudant list databases`: init env endpoint error', function(done) {
-		it('should send a slack event with an init env endpoint error', function(done) {
+		it('should send an event with an init env endpoint error', function(done) {
 			delete process.env.HUBOT_CLOUDANT_ENDPOINT;
 			room.user.say('mimiron', '@hubot cloudant list databases').then(() => {
 				return waitForMessageQueue(room, 3);
@@ -108,7 +108,7 @@ describe('Interacting with Cloudant via Slack: Bad Env Error Testing', function(
 	});
 
 	context('user calls `cloudant list databases`: init env password error', function(done) {
-		it('should send a slack event with an init env password error', function(done) {
+		it('should send an event with an init env password error', function(done) {
 			delete process.env.HUBOT_CLOUDANT_PASSWORD;
 			room.user.say('mimiron', '@hubot cloudant list databases').then(() => {
 				return waitForMessageQueue(room, 3);
@@ -122,7 +122,7 @@ describe('Interacting with Cloudant via Slack: Bad Env Error Testing', function(
 	});
 
 	context('user calls `cloudant set permissions to [database] for [username]`: init env endpoint error', function(done) {
-		it('should send a slack event with an init env endpoint error', function(done) {
+		it('should send an event with an init env endpoint error', function(done) {
 			delete process.env.HUBOT_CLOUDANT_ENDPOINT;
 			room.user.say('mimiron', '@hubot cloudant set permissions to ' + mockUtils.RESOURCES.DATABASES[0] + ' for ' + mockUtils.RESOURCES.USERS[0]).then(() => {
 				return waitForMessageQueue(room, 2);
@@ -136,7 +136,7 @@ describe('Interacting with Cloudant via Slack: Bad Env Error Testing', function(
 	});
 
 	context('user calls `cloudant set permissions to [database] for [username]`: init env password error', function(done) {
-		it('should send a slack event with an init env password error', function(done) {
+		it('should send an event with an init env password error', function(done) {
 			delete process.env.HUBOT_CLOUDANT_PASSWORD;
 			room.user.say('mimiron', '@hubot cloudant set permissions to ' + mockUtils.RESOURCES.DATABASES[0] + ' for ' + mockUtils.RESOURCES.USERS[0]).then(() => {
 				return waitForMessageQueue(room, 2);
@@ -150,7 +150,7 @@ describe('Interacting with Cloudant via Slack: Bad Env Error Testing', function(
 	});
 
 	context('user calls `cloudant list views [database]`: init env endpoint error', function(done) {
-		it('should send a slack event with an init env endpoint error', function(done) {
+		it('should send an event with an init env endpoint error', function(done) {
 			delete process.env.HUBOT_CLOUDANT_ENDPOINT;
 			room.user.say('mimiron', '@hubot cloudant list views ' + mockUtils.RESOURCES.DATABASES[0]).then(() => {
 				return waitForMessageQueue(room, 3);
@@ -164,7 +164,7 @@ describe('Interacting with Cloudant via Slack: Bad Env Error Testing', function(
 	});
 
 	context('user calls `cloudant list views [database]`: init env password error', function(done) {
-		it('should send a slack event with an init env password error', function(done) {
+		it('should send an event with an init env password error', function(done) {
 			delete process.env.HUBOT_CLOUDANT_PASSWORD;
 			room.user.say('mimiron', '@hubot cloudant list views ' + mockUtils.RESOURCES.DATABASES[0]).then(() => {
 				return waitForMessageQueue(room, 3);
@@ -178,7 +178,7 @@ describe('Interacting with Cloudant via Slack: Bad Env Error Testing', function(
 	});
 
 	context('user calls `cloudant run view [database] [view]`: init env endpoint error', function(done) {
-		it('should send a slack event with an init env endpoint error', function(done) {
+		it('should send an event with an init env endpoint error', function(done) {
 			delete process.env.HUBOT_CLOUDANT_ENDPOINT;
 			room.user.say('mimiron', '@hubot cloudant run view ' + mockUtils.RESOURCES.DATABASES[0] + ' ' + mockUtils.RESOURCES.VIEWS[0].design + ':' + mockUtils.RESOURCES.VIEWS[0].view).then(() => {
 				return waitForMessageQueue(room, 2);
@@ -199,7 +199,7 @@ describe('Interacting with Cloudant via Slack: Bad Env Error Testing', function(
 	});
 
 	context('user calls `cloudant run view [database] [view]`: init env password error', function(done) {
-		it('should send a slack event with an init env password error', function(done) {
+		it('should send an event with an init env password error', function(done) {
 			delete process.env.HUBOT_CLOUDANT_PASSWORD;
 			room.user.say('mimiron', '@hubot cloudant run view ' + mockUtils.RESOURCES.DATABASES[0] + ' ' + mockUtils.RESOURCES.VIEWS[0].design + ':' + mockUtils.RESOURCES.VIEWS[0].view).then(() => {
 				return waitForMessageQueue(room, 2);
@@ -223,7 +223,7 @@ describe('Interacting with Cloudant via Slack: Bad Env Error Testing', function(
 
 // Passing arrow functions to mocha is discouraged: https://mochajs.org/#arrow-functions
 // return promises from mocha tests rather than calling done() - http://tobyho.com/2015/12/16/mocha-with-promises/
-describe('Interacting with Cloudant via Slack: Init Error Testing', function() {
+describe('Interacting with Cloudant through regular expression interface: Init Error Testing', function() {
 
 	let room;
 
@@ -253,7 +253,7 @@ describe('Interacting with Cloudant via Slack: Init Error Testing', function() {
 	});
 
 	context('user calls `cloudant list databases`: init error', function(done) {
-		it('should send a slack event with an init error', function(done) {
+		it('should send an event with an init error', function(done) {
 			room.user.say('mimiron', '@hubot cloudant list databases').then(() => {
 				return waitForMessageQueue(room, 3);
 			}).then(() => {
@@ -267,7 +267,7 @@ describe('Interacting with Cloudant via Slack: Init Error Testing', function() {
 	});
 
 	context('user calls `cloudant info database [database]`: init error', function(done) {
-		it('should send a slack event with an init error', function(done) {
+		it('should send an event with an init error', function(done) {
 			room.user.say('mimiron', '@hubot cloudant info database ' + mockUtils.RESOURCES.DATABASES[0]).then(() => {
 				return waitForMessageQueue(room, 3);
 			}).then(() => {
@@ -281,7 +281,7 @@ describe('Interacting with Cloudant via Slack: Init Error Testing', function() {
 	});
 
 	context('user calls `cloudant create database [database]`: init error', function(done) {
-		it('should send a slack event with an init error', function(done) {
+		it('should send an event with an init error', function(done) {
 			room.user.say('mimiron', '@hubot cloudant create database ' + mockUtils.RESOURCES.DATABASES[0]).then(() => {
 				return waitForMessageQueue(room, 3);
 			}).then(() => {
@@ -295,7 +295,7 @@ describe('Interacting with Cloudant via Slack: Init Error Testing', function() {
 	});
 
 	context('user calls `cloudant set permissions to [database] for [username]`: init error on get', function(done) {
-		it('should send a slack event with an init error', function(done) {
+		it('should send an event with an init error', function(done) {
 			room.user.say('mimiron', '@hubot cloudant set permissions to ' + mockUtils.RESOURCES.DATABASES[0] + ' for ' + mockUtils.RESOURCES.USERS[0]).then(() => {
 				return waitForMessageQueue(room, 2);
 			}).then(() => {
@@ -309,7 +309,7 @@ describe('Interacting with Cloudant via Slack: Init Error Testing', function() {
 	});
 
 	context('user calls `cloudant list views [database]`: init error', function(done) {
-		it('should send a slack event with an init error', function(done) {
+		it('should send an event with an init error', function(done) {
 			room.user.say('mimiron', '@hubot cloudant list views ' + mockUtils.RESOURCES.DATABASES[0]).then(() => {
 				return waitForMessageQueue(room, 3);
 			}).then(() => {
@@ -321,7 +321,7 @@ describe('Interacting with Cloudant via Slack: Init Error Testing', function() {
 	});
 
 	context('user calls `cloudant run view [database] [view]`: init error', function(done) {
-		it('should send a slack event with an init error', function(done) {
+		it('should send an event with an init error', function(done) {
 			room.user.say('mimiron', '@hubot cloudant run view ' + mockUtils.RESOURCES.DATABASES[0] + ' ' + mockUtils.RESOURCES.VIEWS[0].design + ':' + mockUtils.RESOURCES.VIEWS[0].view).then(() => {
 				return waitForMessageQueue(room, 2);
 			}).then(() => {
@@ -346,7 +346,7 @@ describe('Interacting with Cloudant via Slack: Init Error Testing', function() {
 
 // Passing arrow functions to mocha is discouraged: https://mochajs.org/#arrow-functions
 // return promises from mocha tests rather than calling done() - http://tobyho.com/2015/12/16/mocha-with-promises/
-describe('Interacting with Cloudant via Slack: Error Testing', function() {
+describe('Interacting with Cloudant through regular expression interface: Error Testing', function() {
 
 	let room;
 
@@ -376,7 +376,7 @@ describe('Interacting with Cloudant via Slack: Error Testing', function() {
 	});
 
 	context('user calls `cloudant list databases`: error', function(done) {
-		it('should send a slack event with an error', function(done) {
+		it('should send an event with an error', function(done) {
 			room.user.say('mimiron', '@hubot cloudant list databases').then(() => {
 				return waitForMessageQueue(room, 3);
 			}).then(() => {
@@ -390,7 +390,7 @@ describe('Interacting with Cloudant via Slack: Error Testing', function() {
 	});
 
 	context('user calls `cloudant info database [database]`: error', function(done) {
-		it('should send a slack event with an error', function(done) {
+		it('should send an event with an error', function(done) {
 			room.user.say('mimiron', '@hubot cloudant info database ' + mockUtils.RESOURCES.DATABASES[0]).then(() => {
 				return waitForMessageQueue(room, 3);
 			}).then(() => {
@@ -404,7 +404,7 @@ describe('Interacting with Cloudant via Slack: Error Testing', function() {
 	});
 
 	context('user calls `cloudant create database [database]`: error', function(done) {
-		it('should send a slack event with an error', function(done) {
+		it('should send an event with an error', function(done) {
 			room.user.say('mimiron', '@hubot cloudant create database ' + mockUtils.RESOURCES.DATABASES[0]).then(() => {
 				return waitForMessageQueue(room, 3);
 			}).then(() => {
@@ -418,7 +418,7 @@ describe('Interacting with Cloudant via Slack: Error Testing', function() {
 	});
 
 	context('user calls `cloudant set permissions to [database] for [username]`: error on get', function(done) {
-		it('should send a slack event with an error', function(done) {
+		it('should send an event with an error', function(done) {
 			room.user.say('mimiron', '@hubot cloudant set permissions to ' + mockUtils.RESOURCES.DATABASES[0] + ' for ' + mockUtils.RESOURCES.USERS[0]).then(() => {
 				return waitForMessageQueue(room, 2);
 			}).then(() => {
@@ -432,7 +432,7 @@ describe('Interacting with Cloudant via Slack: Error Testing', function() {
 	});
 
 	context('user calls `cloudant set permissions to [database] for [username]`: error on set', function(done) {
-		it('should send a slack event with an init error', function(done) {
+		it('should send an event with an init error', function(done) {
 			room.user.say('mimiron', '@hubot cloudant set permissions to ' + mockUtils.RESOURCES.DATABASES[1] + ' for ' + mockUtils.RESOURCES.USERS[0]).then(() => {
 				return waitForMessageQueue(room, 2);
 			}).then(() => {
@@ -475,7 +475,7 @@ describe('Interacting with Cloudant via Slack: Error Testing', function() {
 	});
 
 	context('user calls `cloudant list views [database]`: error', function(done) {
-		it('should send a slack event with an error', function(done) {
+		it('should send an event with an error', function(done) {
 			room.user.say('mimiron', '@hubot cloudant list views ' + mockUtils.RESOURCES.DATABASES[0]).then(() => {
 				return waitForMessageQueue(room, 3);
 			}).then(() => {
@@ -489,7 +489,7 @@ describe('Interacting with Cloudant via Slack: Error Testing', function() {
 	});
 
 	context('user calls `cloudant run view [database] [view]`: error', function(done) {
-		it('should send a slack event with an error', function(done) {
+		it('should send an event with an error', function(done) {
 			room.user.say('mimiron', '@hubot cloudant run view ' + mockUtils.RESOURCES.DATABASES[0] + ' ' + mockUtils.RESOURCES.VIEWS[0].design + ':' + mockUtils.RESOURCES.VIEWS[0].view).then(() => {
 				return waitForMessageQueue(room, 2);
 			}).then(() => {

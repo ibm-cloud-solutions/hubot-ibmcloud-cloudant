@@ -37,7 +37,7 @@
 			   {
 			       "name": "databasename",
 			       "type": "entity",
-			       "prompt": "OK. What is the name of the database for which you want detailed?"
+			       "prompt": "OK. What is the name of the database for which you want details?"
 			   }
 	       ]
   		},

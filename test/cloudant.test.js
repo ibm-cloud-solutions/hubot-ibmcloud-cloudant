@@ -83,7 +83,7 @@ describe('Load modules through index', function() {
 
 // Passing arrow functions to mocha is discouraged: https://mochajs.org/#arrow-functions
 // return promises from mocha tests rather than calling done() - http://tobyho.com/2015/12/16/mocha-with-promises/
-describe('Interacting with Cloudant via Slack', function() {
+describe('Interacting with Cloudant through regular expression interface', function() {
 
 	let room;
 
