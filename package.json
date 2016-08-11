@@ -1,6 +1,6 @@
 {
   "name": "hubot-ibmcloud-cloudant",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "hubot-ibmcloud-cloudant provides Bluemix Cloudant management functionality.",
   "main": "index.js",
   "respository": {
