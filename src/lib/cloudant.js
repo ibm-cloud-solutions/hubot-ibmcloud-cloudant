@@ -235,14 +235,21 @@ class Cloudant {
 	setDatabasePermissions(databaseName, userName, permissions) {
 		return new Promise(function(resolve, reject) {
 			initCloudantApi().then(function(cloudant) {
-				const permissionsObj = {};
-				permissionsObj[userName] = permissions;
-				cloudant.db.use(databaseName).set_security(permissionsObj, function(err, body) {
+				cloudant.db.use(databaseName).get_security(function(err, inPermissions) {
 					if (err) {
 						reject(err);
 					}
 					else {
-						resolve(body);
+						let permissionsObj = inPermissions.cloudant;
+						permissionsObj[userName] = permissions;
+						cloudant.db.use(databaseName).set_security(permissionsObj, function(err, body) {
+							if (err) {
+								reject(err);
+							}
+							else {
+								resolve(body);
+							}
+						});
 					}
 				});
 			}).catch(function(err) {
