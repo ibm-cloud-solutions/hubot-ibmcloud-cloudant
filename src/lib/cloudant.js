@@ -281,13 +281,11 @@ class Cloudant {
 							for (var i = 0; i < body.rows.length; i++) {
 								var row = body.rows[i];
 								if (row.doc && row.doc.views) {
-									var viewsFields = Object.keys(row.doc.views);
-									if (viewsFields && viewsFields.length === 1) {
-										var viewName = viewsFields[0];
-										var key = (row.key ? row.key : row.id);
-										var designName = key.replace('_design/', '');
+									var key = (row.key ? row.key : row.id);
+									var designName = key.replace('_design/', '');
+									Object.keys(row.doc.views).forEach(function(viewName) {
 										retViews.push({ design: designName, view: viewName });
-									}
+									});
 								}
 							}
 						}
