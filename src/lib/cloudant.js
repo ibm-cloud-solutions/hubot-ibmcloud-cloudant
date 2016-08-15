@@ -235,14 +235,21 @@ class Cloudant {
 	setDatabasePermissions(databaseName, userName, permissions) {
 		return new Promise(function(resolve, reject) {
 			initCloudantApi().then(function(cloudant) {
-				const permissionsObj = {};
-				permissionsObj[userName] = permissions;
-				cloudant.db.use(databaseName).set_security(permissionsObj, function(err, body) {
+				cloudant.db.use(databaseName).get_security(function(err, inPermissions) {
 					if (err) {
 						reject(err);
 					}
 					else {
-						resolve(body);
+						let permissionsObj = inPermissions.cloudant;
+						permissionsObj[userName] = permissions;
+						cloudant.db.use(databaseName).set_security(permissionsObj, function(err, body) {
+							if (err) {
+								reject(err);
+							}
+							else {
+								resolve(body);
+							}
+						});
 					}
 				});
 			}).catch(function(err) {
@@ -274,13 +281,11 @@ class Cloudant {
 							for (var i = 0; i < body.rows.length; i++) {
 								var row = body.rows[i];
 								if (row.doc && row.doc.views) {
-									var viewsFields = Object.keys(row.doc.views);
-									if (viewsFields && viewsFields.length === 1) {
-										var viewName = viewsFields[0];
-										var key = (row.key ? row.key : row.id);
-										var designName = key.replace('_design/', '');
+									var key = (row.key ? row.key : row.id);
+									var designName = key.replace('_design/', '');
+									Object.keys(row.doc.views).forEach(function(viewName) {
 										retViews.push({ design: designName, view: viewName });
-									}
+									});
 								}
 							}
 						}
