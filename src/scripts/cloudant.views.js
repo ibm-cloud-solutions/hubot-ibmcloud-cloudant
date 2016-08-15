@@ -343,7 +343,7 @@ module.exports = (robot) => {
 					reject();
 				}
 				else {
-					let keys = reply.split(/,\s+/);
+					let keys = reply.split(/,\s*/);
 					robot.logger.debug(`${TAG}: Keys entered are [${keys}]`);
 					resolve(keys);
 				}
