@@ -24,7 +24,7 @@ function buildEnv() {
 	// Build information for Cloudant API (obtain account from endpoint env var)
 	// The account is derived by stripping the protocol:// and the :port from the endpoint.
 	// Then .cloudant.com is stripped from the end.
-	var endpoint = process.env.HUBOT_CLOUDANT_ENDPOINT;
+	var endpoint = process.env.VCAP_SERVICES_CLOUDANTNOSQLDB_0_CREDENTIALS_HOST || process.env.HUBOT_CLOUDANT_ENDPOINT;
 	var account = endpoint;
 	if (account) {
 		var protocolSepIndex = account.indexOf('://');
@@ -42,12 +42,12 @@ function buildEnv() {
 	// environment variables are the default one associated with the account) and the
 	// user name to use on all Cloudant API calls (if it is the same as the account,
 	// then it should not be specified).
-	var actualusername = process.env.HUBOT_CLOUDANT_KEY || account;
+	var actualusername = process.env.VCAP_SERVICES_CLOUDANTNOSQLDB_0_CREDENTIALS_USERNAME || process.env.HUBOT_CLOUDANT_KEY || account;
 	var username;
 	if (actualusername && account && actualusername !== account) username = actualusername;
 
 	// Build information for Cloudant API (obtain password from password env var).
-	var password = process.env.HUBOT_CLOUDANT_PASSWORD;
+	var password = process.env.VCAP_SERVICES_CLOUDANTNOSQLDB_0_CREDENTIALS_PASSWORD || process.env.HUBOT_CLOUDANT_PASSWORD;
 
 	// Store api credential info
 	retEnv.api = {

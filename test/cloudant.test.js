@@ -515,3 +515,88 @@ describe('Interacting with Cloudant through regular expression interface', funct
 	});
 
 });
+
+// Passing arrow functions to mocha is discouraged: https://mochajs.org/#arrow-functions
+// return promises from mocha tests rather than calling done() - http://tobyho.com/2015/12/16/mocha-with-promises/
+describe('Test with various env variable settings', function() {
+
+	let room;
+	let saveEndpoint;
+
+
+	before(function() {
+		saveEndpoint = process.env.HUBOT_CLOUDANT_ENDPOINT;
+		mockUtils.setupMockery();
+	});
+
+	after(function() {
+		mockUtils.destroyMockery();
+		process.env.HUBOT_CLOUDANT_ENDPOINT = saveEndpoint;
+		const cloudant = require('../src/lib/cloudant').cloudant;
+		cloudant.clearEnv();
+	});
+
+	beforeEach(function() {
+		delete process.env.VCAP_SERVICES_CLOUDANTNOSQLDB_0_CREDENTIALS_HOST;
+		delete process.env.VCAP_SERVICES_CLOUDANTNOSQLDB_0_CREDENTIALS_USERNAME;
+		delete process.env.VCAP_SERVICES_CLOUDANTNOSQLDB_0_CREDENTIALS_PASSWORD;
+		process.env.HUBOT_CLOUDANT_ENDPOINT = saveEndpoint;
+		const cloudant = require('../src/lib/cloudant').cloudant;
+		cloudant.clearEnv();
+		room = helper.createRoom();
+		// Force all emits into a reply.
+		room.robot.on('ibmcloud.formatter', function(event) {
+			if (event.message) {
+				event.response.reply(event.message);
+			}
+			else {
+				event.response.send({attachments: event.attachments});
+			}
+		});
+	});
+
+	afterEach(function() {
+		room.destroy();
+	});
+
+	context('user calls `cloudant list databases`: use VCAP vars', function(done) {
+		it('should send list databases properly', function(done) {
+			process.env.VCAP_SERVICES_CLOUDANTNOSQLDB_0_CREDENTIALS_HOST = process.env.HUBOT_CLOUDANT_ENDPOINT.replace('https://', '');
+			process.env.VCAP_SERVICES_CLOUDANTNOSQLDB_0_CREDENTIALS_USERNAME = process.env.HUBOT_CLOUDANT_KEY;
+			process.env.VCAP_SERVICES_CLOUDANTNOSQLDB_0_CREDENTIALS_PASSWORD = process.env.HUBOT_CLOUDANT_PASSWORD;
+			room.user.say('mimiron', '@hubot cloudant list databases').then(() => {
+				return waitForMessageQueue(room, 3);
+			}).then(() => {
+				const dbs = mockUtils.RESOURCES.DATABASES.join('\n');
+				expect(room.messages[1]).to.eql(['hubot', '@mimiron ' + i18n.__('cloudant.listdatabases')]);
+				let event = room.messages[2][1];
+				expect(event.attachments.length).to.eql(1);
+				expect(event.attachments[0].title).to.eql(i18n.__('cloudant.listdatabases.title'));
+				expect(event.attachments[0].text).to.eql(dbs);
+				done();
+			}).catch((error) => {
+				done(error);
+			});
+		});
+	});
+
+	context('user calls `cloudant list databases`: add port to endpoint', function(done) {
+		it('should send list databases properly', function(done) {
+			process.env.HUBOT_CLOUDANT_ENDPOINT += ':443';
+			room.user.say('mimiron', '@hubot cloudant list databases').then(() => {
+				return waitForMessageQueue(room, 3);
+			}).then(() => {
+				const dbs = mockUtils.RESOURCES.DATABASES.join('\n');
+				expect(room.messages[1]).to.eql(['hubot', '@mimiron ' + i18n.__('cloudant.listdatabases')]);
+				let event = room.messages[2][1];
+				expect(event.attachments.length).to.eql(1);
+				expect(event.attachments[0].title).to.eql(i18n.__('cloudant.listdatabases.title'));
+				expect(event.attachments[0].text).to.eql(dbs);
+				done();
+			}).catch((error) => {
+				done(error);
+			});
+		});
+	});
+
+});
