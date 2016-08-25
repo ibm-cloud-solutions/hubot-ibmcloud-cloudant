@@ -509,4 +509,34 @@ describe('Interacting with Cloudant through regular expression interface: Error 
 		});
 	});
 
+	context('verify entity functions', function(done) {
+		const entities = require('../src/lib/cloudant.entities');
+
+		it('should get error retrieving set of database names', function(done) {
+			entities.getDatabaseNames('databasename', {}).then(function(databaseNames) {
+				done(new Error('Expected error but did not get one'));
+			}).catch(function(error) {
+				if (error) {
+					done();
+				}
+				else {
+					done(new Error('Catch block invoked, but no error; expected to get one.'));
+				}
+			});
+		});
+
+		it('should get error retrieving set of database view names', function(done) {
+			entities.getViewNames('viewname', {databasename: mockUtils.RESOURCES.DATABASES[0]}).then(function(viewNames) {
+				done(new Error('Expected error but did not get one'));
+			}).catch(function(error) {
+				if (error) {
+					done();
+				}
+				else {
+					done(new Error('Catch block invoked, but no error; expected to get one.'));
+				}
+			});
+		});
+	});
+
 });

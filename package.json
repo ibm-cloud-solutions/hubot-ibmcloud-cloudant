@@ -59,7 +59,7 @@
   ],
   "dependencies": {
     "hubot-ibmcloud-activity-emitter": ">=0.0.2",
-    "hubot-ibmcloud-cognitive-lib": ">=0.0.18",
+    "hubot-ibmcloud-cognitive-lib": ">=0.0.37",
     "hubot-ibmcloud-utils": ">=0.0.8",
     "cloudant": "^1.4.2",
     "dateformat": "^1.0.12",
