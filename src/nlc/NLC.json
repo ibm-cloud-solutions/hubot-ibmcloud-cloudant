@@ -36,8 +36,10 @@
 	       "parameters" : [
 			   {
 			       "name": "databasename",
+			       "title": "database name",
 			       "type": "entity",
-			       "prompt": "OK. What is the name of the database for which you want details?"
+			       "prompt": "OK. What is the name of the database for which you want details?",
+			       "entityfunction": "funcdatabasename"
 			   }
 	       ]
   		},
@@ -53,6 +55,7 @@
 	       "parameters" : [
 			   {
 			       "name": "newdatabasename",
+			       "title": "database name",
 			       "type": "entity",
 			       "prompt": "OK. What is the name of the database you want to create?"
 			   }
@@ -70,13 +73,15 @@
 	       "parameters" : [
 			   {
 			       "name": "databasename",
+			       "title": "database name",
 			       "type": "entity",
-			       "prompt": "OK. What is the name of the database you want to set permissions on?"
+			       "prompt": "OK. What is the name of the database you want to set permissions on?",
+			       "entityfunction": "funcdatabasename"
 			   },
 			   {
 			       "name": "username",
+			       "title": "user name",
 			       "type": "entity",
-			       "required": false,
 			       "prompt": "OK. What is the API key or user name to want to set permissions for?"
 			   }
 	       ]
@@ -94,8 +99,10 @@
 	       "parameters" : [
 			   {
 			       "name": "databasename",
+			       "title": "database name",
 			       "type": "entity",
-			       "prompt": "OK. What is the name of the database you want to show views for?"
+			       "prompt": "OK. What is the name of the database you want to show views for?",
+			       "entityfunction": "funcdatabasename"
 			   }
 	       ]
   		},
@@ -111,14 +118,17 @@
 	       "parameters" : [
 			   {
 			       "name": "databasename",
+			       "title": "database name",
 			       "type": "entity",
-			       "prompt": "OK. What is the name of the database you want to run the view against?"
+			       "prompt": "OK. What is the name of the database you want to run the view against?",
+			       "entityfunction": "funcdatabasename"
 			   },
 			   {
 			       "name": "viewname",
+			       "title": "database view name",
 			       "type": "entity",
-			       "required": false,
-			       "prompt": "OK. What is the name of the view you want to run?"
+			       "prompt": "OK. What is the name of the view you want to run?",
+			       "entityfunction": "funcviewname"
 			   }
 	       ]
   		}

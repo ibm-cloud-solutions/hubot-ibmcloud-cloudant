@@ -56,9 +56,9 @@
 		
 	"cognitive.parse.problem.databaseinfo": "I'm having problems understanding the name of your database. To display database information use *cloudant info database [database]*",
 	"cognitive.parse.problem.createdatabase": "I'm having problems understanding the name of the database. To create the database use *cloudant create database [database]*",
-	"cognitive.parse.problem.setpermissions.databasename": "I'm having problems understanding the name of your database. To set permissions to the database use *cloudant set permissions [database] [user]*",
+	"cognitive.parse.problem.setpermissions.databasename": "I'm having problems understanding the name of your database. To set permissions for the database use *cloudant set permissions [database] [user]*",
+	"cognitive.parse.problem.setpermissions.username": "I'm having problems understanding the name of your user. To set permissions for the database use *cloudant set permissions [database] [user]*",
 	"cognitive.parse.problem.listviews": "I'm having problems understanding the name of your database. To show all views for the database use *cloudant list views [database]*",
 	"cognitive.parse.problem.runview.databasename": "I'm having problems understanding the name of your database. To run a view use *cloudant run view [database] [view]*",
-	"cloudant.setpermissions.permissions.prompt": "cloudant.setpermissions.permissions.prompt",
-	"cognitive.parse.problem.runview.viewname": "cognitive.parse.problem.runview.viewname"
+	"cognitive.parse.problem.runview.viewname": "I'm having problems understanding the name of your database view. To run a view use *cloudant run view [database] [view]*"
 }

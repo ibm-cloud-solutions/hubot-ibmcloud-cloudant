@@ -21,6 +21,7 @@ var path = require('path');
 var TAG = path.basename(__filename);
 
 const cl = require('../lib/cloudant');
+const entities = require('../lib/cloudant.entities');
 const palette = require('hubot-ibmcloud-utils').palette;
 const utils = require('hubot-ibmcloud-utils').utils;
 const nlcconfig = require('hubot-ibmcloud-cognitive-lib').nlcconfig;
@@ -76,6 +77,9 @@ function handleLogCloudantError(robot, err, genericLogMessage) {
 }
 
 module.exports = (robot) => {
+
+	// Register entity handling functions
+	entities.registerEntityFunctions();
 
 	// Natural Language match: cloudant list|show databases
 	robot.on(LIST_DATABASES_ID, (res, parameters) => {

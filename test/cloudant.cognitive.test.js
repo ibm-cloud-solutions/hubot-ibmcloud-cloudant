@@ -171,10 +171,7 @@ describe('Interacting with Cloudant through natural language interface', functio
 		it('should send an event with results of cloudant set permissions', function(done) {
 
 			var replyFn = function(msg) {
-				if (msg.includes(i18n.__('cloudant.setpermissions.user.prompt', mockUtils.RESOURCES.DATABASES[0]))) {
-					room.user.say('mimiron', '@hubot ' + mockUtils.RESOURCES.USERS[0]);
-				}
-				else if (msg.includes(i18n.__('cloudant.setpermissions.permissions.keep.prompt', i18n.__('cloudant.setpermissions._reader'), mockUtils.RESOURCES.USERS[0], '_reader'))) {
+				if (msg.includes(i18n.__('cloudant.setpermissions.permissions.keep.prompt', i18n.__('cloudant.setpermissions._reader'), mockUtils.RESOURCES.USERS[0], '_reader'))) {
 					room.user.say('mimiron', '@hubot  yes');
 				}
 				else if (msg.includes(i18n.__('cloudant.setpermissions.permissions.keep.prompt', i18n.__('cloudant.setpermissions._writer'), mockUtils.RESOURCES.USERS[0], '_writer'))) {
@@ -205,7 +202,7 @@ describe('Interacting with Cloudant through natural language interface', functio
 			});
 
 			var res = { message: {text: 'I want to set permissions to cloudant database [database] for user [username]', user: {id: 'mimiron'}}, response: room, reply: replyFn };
-			room.robot.emit('bluemix.cloudant.setpermissions', res, { databasename: mockUtils.RESOURCES.DATABASES[0] });
+			room.robot.emit('bluemix.cloudant.setpermissions', res, { databasename: mockUtils.RESOURCES.DATABASES[0], username: mockUtils.RESOURCES.USERS[0] });
 
 		});
 	});
@@ -221,6 +218,21 @@ describe('Interacting with Cloudant through natural language interface', functio
 
 			var res = { message: {text: 'I want to set permissions to cloudant database for user [username]', user: {id: 'mimiron'}}, response: room };
 			room.robot.emit('bluemix.cloudant.setpermissions', res, { username: mockUtils.RESOURCES.USERS[0] });
+
+		});
+	});
+
+	context('user calls `I want to set permissions to cloudant database for database [databasename]`', function(done) {
+		it('should send an event with missing username error', function(done) {
+
+			room.robot.on('ibmcloud.formatter', (event) => {
+				expect(event.message).to.be.a('string');
+				expect(event.message).to.eql(i18n.__('cognitive.parse.problem.setpermissions.username'));
+				done();
+			});
+
+			var res = { message: {text: 'I want to set permissions to cloudant database for database [databasename]', user: {id: 'mimiron'}}, response: room };
+			room.robot.emit('bluemix.cloudant.setpermissions', res, { databasename: mockUtils.RESOURCES.DATABASES[0] });
 
 		});
 	});
@@ -346,6 +358,66 @@ describe('Interacting with Cloudant through natural language interface', functio
 			var res = { message: {text: 'I\'d like to execute a view [view] against my cloudant database', user: {id: 'mimiron'}}, response: room };
 			room.robot.emit('bluemix.cloudant.runview', res, { viewname: mockUtils.RESOURCES.VIEWS[0].design + ':' + mockUtils.RESOURCES.VIEWS[0].view });
 
+		});
+	});
+
+	context('user calls `I\'d like to execute a view against my cloudant database [database]`', function(done) {
+		it('should send an event with missing viewname error', function(done) {
+
+			room.robot.on('ibmcloud.formatter', (event) => {
+				expect(event.message).to.be.a('string');
+				expect(event.message).to.eql(i18n.__('cognitive.parse.problem.runview.viewname'));
+				done();
+			});
+
+			var res = { message: {text: 'I\'d like to execute a view against my cloudant database [database]', user: {id: 'mimiron'}}, response: room };
+			room.robot.emit('bluemix.cloudant.runview', res, { databasename: mockUtils.RESOURCES.DATABASES[0] });
+
+		});
+	});
+
+	context('verify entity functions', function(done) {
+
+		it('should retrieve set of database names', function(done) {
+			const entities = require('../src/lib/cloudant.entities');
+			var res = { message: {text: '', user: {id: 'mimiron'}}, response: room };
+			entities.getDatabaseNames(room.robot, res, 'databasename', {}).then(function(databaseNames) {
+				expect(databaseNames.length).to.eql(mockUtils.RESOURCES.DATABASES.length);
+				for (var i = 0; i < databaseNames.length; i++) {
+					expect(databaseNames[i]).to.eql(mockUtils.RESOURCES.DATABASES[i]);
+				}
+				done();
+			}).catch(function(error) {
+				done(error);
+			});
+		});
+
+		it('should retrieve set of database view names', function(done) {
+			const entities = require('../src/lib/cloudant.entities');
+			var res = { message: {text: '', user: {id: 'mimiron'}}, response: room };
+			entities.getViewNames(room.robot, res, 'viewname', {databasename: mockUtils.RESOURCES.DATABASES[0]}).then(function(viewNames) {
+				expect(viewNames.length).to.eql(mockUtils.RESOURCES.VIEWS.length);
+				for (var i = 0; i < viewNames.length; i++) {
+					expect(viewNames[i]).to.eql(mockUtils.RESOURCES.VIEWS[i].design + ':' + mockUtils.RESOURCES.VIEWS[i].view);
+				}
+				done();
+			}).catch(function(error) {
+				done(error);
+			});
+		});
+
+		it('should get error retrieving set of database view names; no databasename provided', function(done) {
+			const entities = require('../src/lib/cloudant.entities');
+			entities.getViewNames('viewname', {}).then(function(viewNames) {
+				done(new Error('Expected error but did not get one'));
+			}).catch(function(error) {
+				if (error) {
+					done();
+				}
+				else {
+					done(new Error('Catch block invoked, but no error; expected to get one.'));
+				}
+			});
 		});
 	});
 

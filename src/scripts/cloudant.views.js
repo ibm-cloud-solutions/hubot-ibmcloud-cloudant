@@ -21,6 +21,7 @@ var path = require('path');
 var TAG = path.basename(__filename);
 
 const cl = require('../lib/cloudant');
+const entities = require('../lib/cloudant.entities');
 const palette = require('hubot-ibmcloud-utils').palette;
 const utils = require('hubot-ibmcloud-utils').utils;
 const Conversation = require('hubot-conversation');
@@ -73,6 +74,9 @@ function handleLogCloudantError(robot, err, genericLogMessage) {
 
 module.exports = (robot) => {
 
+	// Register entity handling functions
+	entities.registerEntityFunctions();
+
 	// for dialog
 	const switchBoard = new Conversation(robot);
 
@@ -116,9 +120,14 @@ module.exports = (robot) => {
 		if (parameters && parameters.viewname) {
 			viewName = parameters.viewname;
 		}
+		else {
+			robot.logger.error(`${TAG}: Error extracting database view name from text [${res.message.text}].`);
+			let message = i18n.__('cognitive.parse.problem.runview.viewname');
+			robot.emit('ibmcloud.formatter', { response: res, message: message});
+		}
 
 		// If ok, process command
-		if (databaseName) {
+		if (databaseName && viewName) {
 			processCloudantRunView(res, databaseName, viewName);
 		}
 	});

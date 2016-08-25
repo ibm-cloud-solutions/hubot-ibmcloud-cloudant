@@ -21,6 +21,7 @@ var path = require('path');
 var TAG = path.basename(__filename);
 
 const cl = require('../lib/cloudant');
+const entities = require('../lib/cloudant.entities');
 const utils = require('hubot-ibmcloud-utils').utils;
 const Conversation = require('hubot-conversation');
 const activity = require('hubot-ibmcloud-activity-emitter');
@@ -68,6 +69,9 @@ function handleLogCloudantError(robot, err, genericLogMessage) {
 
 module.exports = (robot) => {
 
+	// Register entity handling functions
+	entities.registerEntityFunctions();
+
 	// for dialog
 	const switchBoard = new Conversation(robot);
 
@@ -89,9 +93,14 @@ module.exports = (robot) => {
 		if (parameters && parameters.username) {
 			userName = parameters.username;
 		}
+		else {
+			robot.logger.error(`${TAG}: Error extracting user name from text [${res.message.text}].`);
+			let message = i18n.__('cognitive.parse.problem.setpermissions.username');
+			robot.emit('ibmcloud.formatter', { response: res, message: message});
+		}
 
 		// If ok, process command
-		if (databaseName) {
+		if (databaseName && userName) {
 			processCloudantSetPermissions(res, databaseName, userName);
 		}
 
