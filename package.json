@@ -53,7 +53,7 @@
     "hubot-ibmcloud-activity-emitter": "latest",
     "hubot-ibmcloud-cognitive-lib": "latest",
     "hubot-ibmcloud-utils": "latest",
-    "i18n-2": "*",
+    "i18n-2": "*"
   },
   "engines": {
     "node": ">= 4.2.0"
