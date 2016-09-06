@@ -17,8 +17,8 @@
  */
 'use strict';
 
-var path = require('path');
-var TAG = path.basename(__filename);
+const path = require('path');
+const TAG = path.basename(__filename);
 
 const cl = require('../lib/cloudant');
 const entities = require('../lib/cloudant.entities');
@@ -80,8 +80,8 @@ module.exports = (robot) => {
 		robot.logger.debug(`${TAG}: ${SET_PERMISSIONS_ID} - Natural Language match - res.message.text=${res.message.text}.`);
 
 		// Verify parameters
-		var databaseName;
-		var userName;
+		let databaseName;
+		let userName;
 		if (parameters && parameters.databasename) {
 			databaseName = parameters.databasename;
 		}
@@ -139,7 +139,7 @@ module.exports = (robot) => {
 
 						// Tell user that the command is being started.
 						robot.logger.info(`${TAG}: Granting user ${newUserName} [${permissions}] permissions to ${databaseName} Cloudant database.`);
-						var message;
+						let message;
 						if (permissions.length > 0) {
 							message = i18n.__('cloudant.setpermissions', newUserName, permissions, databaseName);
 						}
@@ -207,13 +207,13 @@ module.exports = (robot) => {
 			else {
 
 				// Build conversation prompt to send back to user
-				var prompt = i18n.__('cloudant.setpermissions.user.prompt', databaseName);
+				let prompt = i18n.__('cloudant.setpermissions.user.prompt', databaseName);
 
 				// Start conversation and wait for response
 				utils.getExpectedResponse(res, robot, switchBoard, prompt, /(.*)/i).then(function(dialogResult) {
 
 					// Process user response.  It is expected to be the user name.
-					var reply = dialogResult.match[1].trim();
+					let reply = dialogResult.match[1].trim();
 					robot.logger.debug(`${TAG}: Dialog reply is: ${reply}`);
 
 					// If exit was entered, then leave
@@ -249,7 +249,7 @@ module.exports = (robot) => {
 	function getPermissionsToSet(res, databaseName, userName, currentPermissions) {
 		return new Promise(function(resolve, reject) {
 
-			var permissions = [];
+			let permissions = [];
 			const PERMISSIONS = [
 				'_reader',
 				'_writer',
@@ -259,7 +259,7 @@ module.exports = (robot) => {
 
 			// Sequentially prompt the user to see if they wish to add/keep each permission.
 			// Once complete, return with the array of desired permissions.
-			var prom = Promise.resolve();
+			let prom = Promise.resolve();
 			return PERMISSIONS.reduce(function(p, perm) {
 				return p.then(function() {
 					return getPermissionFromPrompt(res, databaseName, userName, perm, (currentPermissions && currentPermissions.indexOf(perm) >= 0), (permissions === null));
@@ -304,11 +304,11 @@ module.exports = (robot) => {
 			// Initiate conversation to obtain permissions
 			else {
 
-				var permission;
+				let permission;
 
 				// Build conversation prompt to send back to user
 				let accessDesc = i18n.__('cloudant.setpermissions.' + perm);
-				var prompt;
+				let prompt;
 				if (alreadySet) {
 					prompt = i18n.__('cloudant.setpermissions.permissions.keep.prompt', accessDesc, userName, perm);
 				}
@@ -319,7 +319,7 @@ module.exports = (robot) => {
 
 				// Start conversation and wait for response
 				utils.getExpectedResponse(res, robot, switchBoard, prompt, /(yes|no)/i).then((dialogResult) => {
-					var reply = dialogResult.match[1].trim();
+					let reply = dialogResult.match[1].trim();
 					robot.logger.debug(`${TAG}: Dialog reply is: ${reply}`);
 
 					// If response is yes, add the permission to the returned permissions array

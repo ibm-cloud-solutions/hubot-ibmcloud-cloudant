@@ -17,8 +17,8 @@
  */
 'use strict';
 
-var path = require('path');
-var TAG = path.basename(__filename);
+const path = require('path');
+const TAG = path.basename(__filename);
 
 const cl = require('../lib/cloudant');
 const entities = require('../lib/cloudant.entities');
@@ -94,7 +94,7 @@ module.exports = (robot) => {
 		robot.logger.debug(`${TAG}: ${DATABASE_INFO_ID} - Natural Language match - res.message.text=${res.message.text}.`);
 
 		// Verify parameters
-		var databaseName;
+		let databaseName;
 		if (parameters && parameters.databasename) {
 			databaseName = parameters.databasename;
 		}
@@ -116,7 +116,7 @@ module.exports = (robot) => {
 		robot.logger.debug(`${TAG}: ${CREATE_DATABASE_ID} - Natural Language match - res.message.text=${res.message.text}.`);
 
 		// Verify parameters
-		var newDatabaseName;
+		let newDatabaseName;
 		if (parameters && parameters.newdatabasename) {
 			newDatabaseName = parameters.newdatabasename;
 		}
@@ -220,7 +220,7 @@ module.exports = (robot) => {
 		cl.cloudant.getDatabaseInfo(databaseName).then(function(result) {
 
 			// Build response to send back to user
-			var attachments = [];
+			let attachments = [];
 			const attachment = {
 				title: databaseName,
 				color: palette.normal

@@ -9,7 +9,7 @@
 const CloudantObj = require('cloudant');
 
 
-var env = null;
+let env = null;
 
 /**
  * Builds the options used to initialize with Cloudant (account/username/password)
@@ -19,19 +19,19 @@ var env = null;
  */
 function buildEnv() {
 
-	var retEnv = {};
+	let retEnv = {};
 
 	// Build information for Cloudant API (obtain account from endpoint env var)
 	// The account is derived by stripping the protocol:// and the :port from the endpoint.
 	// Then .cloudant.com is stripped from the end.
-	var endpoint = process.env.VCAP_SERVICES_CLOUDANTNOSQLDB_0_CREDENTIALS_HOST || process.env.HUBOT_CLOUDANT_ENDPOINT;
-	var account = endpoint;
+	let endpoint = process.env.VCAP_SERVICES_CLOUDANTNOSQLDB_0_CREDENTIALS_HOST || process.env.HUBOT_CLOUDANT_ENDPOINT;
+	let account = endpoint;
 	if (account) {
-		var protocolSepIndex = account.indexOf('://');
+		let protocolSepIndex = account.indexOf('://');
 		if (protocolSepIndex >= 0) {
 			account = account.substring(protocolSepIndex + 3);
 		}
-		var portSepIndex = account.lastIndexOf(':');
+		let portSepIndex = account.lastIndexOf(':');
 		if (portSepIndex >= 0) {
 			account = account.substring(0, portSepIndex);
 		}
@@ -42,12 +42,12 @@ function buildEnv() {
 	// environment variables are the default one associated with the account) and the
 	// user name to use on all Cloudant API calls (if it is the same as the account,
 	// then it should not be specified).
-	var actualusername = process.env.VCAP_SERVICES_CLOUDANTNOSQLDB_0_CREDENTIALS_USERNAME || process.env.HUBOT_CLOUDANT_KEY || account;
-	var username;
+	let actualusername = process.env.VCAP_SERVICES_CLOUDANTNOSQLDB_0_CREDENTIALS_USERNAME || process.env.HUBOT_CLOUDANT_KEY || account;
+	let username;
 	if (actualusername && account && actualusername !== account) username = actualusername;
 
 	// Build information for Cloudant API (obtain password from password env var).
-	var password = process.env.VCAP_SERVICES_CLOUDANTNOSQLDB_0_CREDENTIALS_PASSWORD || process.env.HUBOT_CLOUDANT_PASSWORD;
+	let password = process.env.VCAP_SERVICES_CLOUDANTNOSQLDB_0_CREDENTIALS_PASSWORD || process.env.HUBOT_CLOUDANT_PASSWORD;
 
 	// Store api credential info
 	retEnv.api = {
@@ -276,13 +276,13 @@ class Cloudant {
 						reject(err);
 					}
 					else {
-						var retViews = [];
+						let retViews = [];
 						if (body && body.rows && body.rows.length > 0) {
-							for (var i = 0; i < body.rows.length; i++) {
-								var row = body.rows[i];
+							for (let i = 0; i < body.rows.length; i++) {
+								let row = body.rows[i];
 								if (row.doc && row.doc.views) {
-									var key = (row.key ? row.key : row.id);
-									var designName = key.replace('_design/', '');
+									let key = (row.key ? row.key : row.id);
+									let designName = key.replace('_design/', '');
 									Object.keys(row.doc.views).forEach(function(viewName) {
 										retViews.push({ design: designName, view: viewName });
 									});
@@ -312,7 +312,7 @@ class Cloudant {
 	runDatabaseView(databaseName, designName, viewName, keys) {
 		return new Promise(function(resolve, reject) {
 			initCloudantApi().then(function(cloudant) {
-				var keysParam = { limit: 20 };
+				let keysParam = { limit: 20 };
 				if (keys && keys.length > 0) {
 					keysParam.keys = keys;
 				}

@@ -17,8 +17,8 @@
  */
 'use strict';
 
-var path = require('path');
-var TAG = path.basename(__filename);
+const path = require('path');
+const TAG = path.basename(__filename);
 
 const cl = require('../lib/cloudant');
 const entities = require('../lib/cloudant.entities');
@@ -85,7 +85,7 @@ module.exports = (robot) => {
 		robot.logger.debug(`${TAG}: ${LIST_VIEWS_ID} - Natural Language match - res.message.text=${res.message.text}.`);
 
 		// Verify parameters
-		var databaseName;
+		let databaseName;
 		if (parameters && parameters.databasename) {
 			databaseName = parameters.databasename;
 		}
@@ -107,8 +107,8 @@ module.exports = (robot) => {
 		robot.logger.debug(`${TAG}: ${RUN_VIEW_ID} - Natural Language match - res.message.text=${res.message.text}.`);
 
 		// Verify parameters
-		var databaseName;
-		var viewName;
+		let databaseName;
+		let viewName;
 		if (parameters && parameters.databasename) {
 			databaseName = parameters.databasename;
 		}
@@ -225,7 +225,7 @@ module.exports = (robot) => {
 				cl.cloudant.runDatabaseView(databaseName, newDesignName, newViewName, keys).then(function(result) {
 
 					// Build response to send back to user
-					var attachments = result.map(function(viewItem) {
+					let attachments = result.map(function(viewItem) {
 						const text = JSON.stringify(viewItem, null, 4);
 						const attachment = {
 							color: palette.normal,
@@ -295,14 +295,14 @@ module.exports = (robot) => {
 			if (!viewName || viewName === null) {
 
 				// Build conversation prompt to send back to user
-				var prompt = i18n.__('cloudant.runview.view.prompt');
+				let prompt = i18n.__('cloudant.runview.view.prompt');
 
 				// Start conversation and wait for response
 				utils.getExpectedResponse(res, robot, switchBoard, prompt, /(\S+):(.*)/i).then(function(dialogResult) {
 
 					// Process user response.  It is expected to be the view name.
-					var design = dialogResult.match[1].trim();
-					var view = dialogResult.match[2].trim();
+					let design = dialogResult.match[1].trim();
+					let view = dialogResult.match[2].trim();
 					robot.logger.debug(`${TAG}: Dialog reply is: ${design}:${view}`);
 
 					// Return chosen design and view name
@@ -336,13 +336,13 @@ module.exports = (robot) => {
 			const EXIT_TEXT = 'exit';
 
 			// Build conversation prompt to send back to user
-			var prompt = i18n.__('cloudant.runview.keys.prompt', viewName, NONE_TEXT, EXIT_TEXT);
+			let prompt = i18n.__('cloudant.runview.keys.prompt', viewName, NONE_TEXT, EXIT_TEXT);
 
 			// Start conversation and wait for response
 			utils.getExpectedResponse(res, robot, switchBoard, prompt, /(.*)/i).then((dialogResult) => {
 
 				// Process user response.  It is expected to be a ', ' deliminated list of keys.
-				var reply = dialogResult.match[1].trim();
+				let reply = dialogResult.match[1].trim();
 				robot.logger.debug(`${TAG}: Dialog reply is: ${reply}`);
 				if (reply.length === 0 || reply === NONE_TEXT) {
 					resolve([]);

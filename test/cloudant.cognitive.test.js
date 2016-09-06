@@ -16,7 +16,7 @@ const mockUtils = require('./cloudant.mock');
 // It will read from a peer messages.json file.  Later, these
 // messages can be referenced throughout the module.
 // --------------------------------------------------------------
-var i18n = new (require('i18n-2'))({
+const i18n = new (require('i18n-2'))({
 	locales: ['en'],
 	extension: '.json',
 	// Add more languages to the list of locales when the files are created.
@@ -66,7 +66,7 @@ describe('Interacting with Cloudant through natural language interface', functio
 				done();
 			});
 
-			var res = { message: {text: 'I want help with cloudant'}, response: room };
+			let res = { message: {text: 'I want help with cloudant'}, response: room };
 			room.robot.emit('bluemix.cloudant.help', res, {});
 
 		});
@@ -88,7 +88,7 @@ describe('Interacting with Cloudant through natural language interface', functio
 				}
 			});
 
-			var res = { message: {text: 'Show my cloudant databases', user: {id: 'mimiron'}}, response: room };
+			let res = { message: {text: 'Show my cloudant databases', user: {id: 'mimiron'}}, response: room };
 			room.robot.emit('bluemix.cloudant.listdatabases', res, {});
 
 		});
@@ -109,7 +109,7 @@ describe('Interacting with Cloudant through natural language interface', functio
 				}
 			});
 
-			var res = { message: {text: 'Show me details for my cloudant database [database]', user: {id: 'mimiron'}}, response: room };
+			let res = { message: {text: 'Show me details for my cloudant database [database]', user: {id: 'mimiron'}}, response: room };
 			room.robot.emit('bluemix.cloudant.databaseinfo', res, { databasename: mockUtils.RESOURCES.DATABASES[0] });
 
 		});
@@ -124,7 +124,7 @@ describe('Interacting with Cloudant through natural language interface', functio
 				done();
 			});
 
-			var res = { message: {text: 'Show me details for my cloudant database', user: {id: 'mimiron'}}, response: room };
+			let res = { message: {text: 'Show me details for my cloudant database', user: {id: 'mimiron'}}, response: room };
 			room.robot.emit('bluemix.cloudant.databaseinfo', res, {});
 
 		});
@@ -146,7 +146,7 @@ describe('Interacting with Cloudant through natural language interface', functio
 				}
 			});
 
-			var res = { message: {text: 'I want to create cloudant database named [database]', user: {id: 'mimiron'}}, response: room };
+			let res = { message: {text: 'I want to create cloudant database named [database]', user: {id: 'mimiron'}}, response: room };
 			room.robot.emit('bluemix.cloudant.createdatabase', res, { newdatabasename: mockUtils.RESOURCES.DATABASES[0] });
 
 		});
@@ -161,7 +161,7 @@ describe('Interacting with Cloudant through natural language interface', functio
 				done();
 			});
 
-			var res = { message: {text: 'I want to create cloudant database named', user: {id: 'mimiron'}}, response: room };
+			let res = { message: {text: 'I want to create cloudant database named', user: {id: 'mimiron'}}, response: room };
 			room.robot.emit('bluemix.cloudant.createdatabase', res, {});
 
 		});
@@ -170,7 +170,7 @@ describe('Interacting with Cloudant through natural language interface', functio
 	context('user calls `I want to set permissions to cloudant database [database] for user [username]`', function(done) {
 		it('should send an event with results of cloudant set permissions', function(done) {
 
-			var replyFn = function(msg) {
+			let replyFn = function(msg) {
 				if (msg.includes(i18n.__('cloudant.setpermissions.permissions.keep.prompt', i18n.__('cloudant.setpermissions._reader'), mockUtils.RESOURCES.USERS[0], '_reader'))) {
 					room.user.say('mimiron', '@hubot  yes');
 				}
@@ -201,7 +201,7 @@ describe('Interacting with Cloudant through natural language interface', functio
 				}
 			});
 
-			var res = { message: {text: 'I want to set permissions to cloudant database [database] for user [username]', user: {id: 'mimiron'}}, response: room, reply: replyFn };
+			let res = { message: {text: 'I want to set permissions to cloudant database [database] for user [username]', user: {id: 'mimiron'}}, response: room, reply: replyFn };
 			room.robot.emit('bluemix.cloudant.setpermissions', res, { databasename: mockUtils.RESOURCES.DATABASES[0], username: mockUtils.RESOURCES.USERS[0] });
 
 		});
@@ -216,7 +216,7 @@ describe('Interacting with Cloudant through natural language interface', functio
 				done();
 			});
 
-			var res = { message: {text: 'I want to set permissions to cloudant database for user [username]', user: {id: 'mimiron'}}, response: room };
+			let res = { message: {text: 'I want to set permissions to cloudant database for user [username]', user: {id: 'mimiron'}}, response: room };
 			room.robot.emit('bluemix.cloudant.setpermissions', res, { username: mockUtils.RESOURCES.USERS[0] });
 
 		});
@@ -231,7 +231,7 @@ describe('Interacting with Cloudant through natural language interface', functio
 				done();
 			});
 
-			var res = { message: {text: 'I want to set permissions to cloudant database for database [databasename]', user: {id: 'mimiron'}}, response: room };
+			let res = { message: {text: 'I want to set permissions to cloudant database for database [databasename]', user: {id: 'mimiron'}}, response: room };
 			room.robot.emit('bluemix.cloudant.setpermissions', res, { databasename: mockUtils.RESOURCES.DATABASES[0] });
 
 		});
@@ -256,7 +256,7 @@ describe('Interacting with Cloudant through natural language interface', functio
 				}
 			});
 
-			var res = { message: {text: 'Show my views for cloudant database [database]', user: {id: 'mimiron'}}, response: room };
+			let res = { message: {text: 'Show my views for cloudant database [database]', user: {id: 'mimiron'}}, response: room };
 			room.robot.emit('bluemix.cloudant.listviews', res, { databasename: mockUtils.RESOURCES.DATABASES[0] });
 
 		});
@@ -271,7 +271,7 @@ describe('Interacting with Cloudant through natural language interface', functio
 				done();
 			});
 
-			var res = { message: {text: 'Show my views for cloudant database', user: {id: 'mimiron'}}, response: room };
+			let res = { message: {text: 'Show my views for cloudant database', user: {id: 'mimiron'}}, response: room };
 			room.robot.emit('bluemix.cloudant.listviews', res, {});
 
 		});
@@ -280,7 +280,7 @@ describe('Interacting with Cloudant through natural language interface', functio
 	context('user calls `I\'d like to execute a view [view] against my cloudant database [database]`', function(done) {
 		it('should send an event with results of running view', function(done) {
 
-			var replyFn = function(msg) {
+			let replyFn = function(msg) {
 				if (msg.includes(i18n.__('cloudant.runview.keys.prompt', mockUtils.RESOURCES.VIEWS[0].view, 'none', 'exit'))) {
 					room.user.say('mimiron', '@hubot Fred_Johnson, Jack_Johnson, William_Jones');
 				}
@@ -296,7 +296,7 @@ describe('Interacting with Cloudant through natural language interface', functio
 				else if (event.attachments && event.attachments.length >= 1) {
 					expect(event.attachments.length).to.eql(4);
 					expect(event.attachments[0].title).to.eql(i18n.__('cloudant.runview.title'));
-					for (var i = 1; i < event.attachments.length; i++) {
+					for (let i = 1; i < event.attachments.length; i++) {
 						expect(event.attachments[i].text).to.contain('key');
 						expect(event.attachments[i].text).to.contain('value');
 					}
@@ -304,7 +304,7 @@ describe('Interacting with Cloudant through natural language interface', functio
 				}
 			});
 
-			var res = { message: {text: 'I\'d like to execute a view [view] against my cloudant database [database]', user: {id: 'mimiron'}}, response: room, reply: replyFn };
+			let res = { message: {text: 'I\'d like to execute a view [view] against my cloudant database [database]', user: {id: 'mimiron'}}, response: room, reply: replyFn };
 			room.robot.emit('bluemix.cloudant.runview', res, { databasename: mockUtils.RESOURCES.DATABASES[0], viewname: mockUtils.RESOURCES.VIEWS[0].design + ':' + mockUtils.RESOURCES.VIEWS[0].view });
 
 		});
@@ -313,7 +313,7 @@ describe('Interacting with Cloudant through natural language interface', functio
 	context('user calls `I\'d like to execute a view [view] against my cloudant database [database]; bad view`', function(done) {
 		it('should send an event with results of running view', function(done) {
 
-			var replyFn = function(msg) {
+			let replyFn = function(msg) {
 				if (msg.includes(i18n.__('cloudant.runview.view.prompt'))) {
 					room.user.say('mimiron', '@hubot ' + mockUtils.RESOURCES.VIEWS[0].design + ':' + mockUtils.RESOURCES.VIEWS[0].view);
 				}
@@ -332,7 +332,7 @@ describe('Interacting with Cloudant through natural language interface', functio
 				else if (event.attachments && event.attachments.length >= 1) {
 					expect(event.attachments.length).to.eql(4);
 					expect(event.attachments[0].title).to.eql(i18n.__('cloudant.runview.title'));
-					for (var i = 1; i < event.attachments.length; i++) {
+					for (let i = 1; i < event.attachments.length; i++) {
 						expect(event.attachments[i].text).to.contain('key');
 						expect(event.attachments[i].text).to.contain('value');
 					}
@@ -340,7 +340,7 @@ describe('Interacting with Cloudant through natural language interface', functio
 				}
 			});
 
-			var res = { message: {text: 'I\'d like to execute a view [view] against my cloudant database [database]', user: {id: 'mimiron'}}, response: room, reply: replyFn };
+			let res = { message: {text: 'I\'d like to execute a view [view] against my cloudant database [database]', user: {id: 'mimiron'}}, response: room, reply: replyFn };
 			room.robot.emit('bluemix.cloudant.runview', res, { databasename: mockUtils.RESOURCES.DATABASES[0], viewname: mockUtils.RESOURCES.VIEWS[0].view });
 
 		});
@@ -355,7 +355,7 @@ describe('Interacting with Cloudant through natural language interface', functio
 				done();
 			});
 
-			var res = { message: {text: 'I\'d like to execute a view [view] against my cloudant database', user: {id: 'mimiron'}}, response: room };
+			let res = { message: {text: 'I\'d like to execute a view [view] against my cloudant database', user: {id: 'mimiron'}}, response: room };
 			room.robot.emit('bluemix.cloudant.runview', res, { viewname: mockUtils.RESOURCES.VIEWS[0].design + ':' + mockUtils.RESOURCES.VIEWS[0].view });
 
 		});
@@ -370,7 +370,7 @@ describe('Interacting with Cloudant through natural language interface', functio
 				done();
 			});
 
-			var res = { message: {text: 'I\'d like to execute a view against my cloudant database [database]', user: {id: 'mimiron'}}, response: room };
+			let res = { message: {text: 'I\'d like to execute a view against my cloudant database [database]', user: {id: 'mimiron'}}, response: room };
 			room.robot.emit('bluemix.cloudant.runview', res, { databasename: mockUtils.RESOURCES.DATABASES[0] });
 
 		});
@@ -380,10 +380,10 @@ describe('Interacting with Cloudant through natural language interface', functio
 
 		it('should retrieve set of database names', function(done) {
 			const entities = require('../src/lib/cloudant.entities');
-			var res = { message: {text: '', user: {id: 'mimiron'}}, response: room };
+			let res = { message: {text: '', user: {id: 'mimiron'}}, response: room };
 			entities.getDatabaseNames(room.robot, res, 'databasename', {}).then(function(databaseNames) {
 				expect(databaseNames.length).to.eql(mockUtils.RESOURCES.DATABASES.length);
-				for (var i = 0; i < databaseNames.length; i++) {
+				for (let i = 0; i < databaseNames.length; i++) {
 					expect(databaseNames[i]).to.eql(mockUtils.RESOURCES.DATABASES[i]);
 				}
 				done();
@@ -394,10 +394,10 @@ describe('Interacting with Cloudant through natural language interface', functio
 
 		it('should retrieve set of database view names', function(done) {
 			const entities = require('../src/lib/cloudant.entities');
-			var res = { message: {text: '', user: {id: 'mimiron'}}, response: room };
+			let res = { message: {text: '', user: {id: 'mimiron'}}, response: room };
 			entities.getViewNames(room.robot, res, 'viewname', {databasename: mockUtils.RESOURCES.DATABASES[0]}).then(function(viewNames) {
 				expect(viewNames.length).to.eql(mockUtils.RESOURCES.VIEWS.length);
-				for (var i = 0; i < viewNames.length; i++) {
+				for (let i = 0; i < viewNames.length; i++) {
 					expect(viewNames[i]).to.eql(mockUtils.RESOURCES.VIEWS[i].design + ':' + mockUtils.RESOURCES.VIEWS[i].view);
 				}
 				done();

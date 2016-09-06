@@ -13,7 +13,7 @@ const NAMESPACE = 'IBMcloudCloudant';
 const PARAM_DATABASENAME = 'databasename';
 const PARAM_VIEWNAME = 'viewname';
 
-var functionsRegistered = false;
+let functionsRegistered = false;
 
 
 function buildGlobalName(parameterName) {
