@@ -17,7 +17,7 @@ const mockUtils = require('./cloudant.mock');
 // It will read from a peer messages.json file.  Later, these
 // messages can be referenced throughout the module.
 // --------------------------------------------------------------
-var i18n = new (require('i18n-2'))({
+const i18n = new (require('i18n-2'))({
 	locales: ['en'],
 	extension: '.json',
 	// Add more languages to the list of locales when the files are created.
@@ -361,7 +361,7 @@ describe('Interacting with Cloudant through regular expression interface', funct
 						let event = room.messages[6][1];
 						expect(event.attachments.length).to.eql(4);
 						expect(event.attachments[0].title).to.eql(i18n.__('cloudant.runview.title'));
-						for (var i = 1; i < event.attachments.length; i++) {
+						for (let i = 1; i < event.attachments.length; i++) {
 							expect(event.attachments[i].text).to.contain('key');
 							expect(event.attachments[i].text).to.contain('value');
 						}
@@ -423,7 +423,7 @@ describe('Interacting with Cloudant through regular expression interface', funct
 						let event = room.messages[6][1];
 						expect(event.attachments.length).to.eql(4);
 						expect(event.attachments[0].title).to.eql(i18n.__('cloudant.runview.title'));
-						for (var i = 1; i < event.attachments.length; i++) {
+						for (let i = 1; i < event.attachments.length; i++) {
 							expect(event.attachments[i].text).to.contain('key');
 							expect(event.attachments[i].text).to.contain('value');
 						}
@@ -453,7 +453,7 @@ describe('Interacting with Cloudant through regular expression interface', funct
 					let event = room.messages[4][1];
 					expect(event.attachments.length).to.eql(4);
 					expect(event.attachments[0].title).to.eql(i18n.__('cloudant.runview.title'));
-					for (var i = 1; i < event.attachments.length; i++) {
+					for (let i = 1; i < event.attachments.length; i++) {
 						expect(event.attachments[i].text).to.contain('key');
 						expect(event.attachments[i].text).to.contain('value');
 					}
@@ -480,7 +480,7 @@ describe('Interacting with Cloudant through regular expression interface', funct
 					let event = room.messages[4][1];
 					expect(event.attachments.length).to.eql(11);
 					expect(event.attachments[0].title).to.eql(i18n.__('cloudant.runview.title'));
-					for (var i = 1; i < event.attachments.length; i++) {
+					for (let i = 1; i < event.attachments.length; i++) {
 						expect(event.attachments[i].text).to.contain('key');
 						expect(event.attachments[i].text).to.contain('value');
 					}

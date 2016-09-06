@@ -8,7 +8,7 @@
 const nock = require('nock');
 
 function buildMockEndpoint() {
-	var clEndpoint;
+	let clEndpoint;
 	const endpoint = process.env.HUBOT_CLOUDANT_ENDPOINT || 'https://mycloudant.cloudant.com';
 	const username = process.env.HUBOT_CLOUDANT_KEY || 'mycloudant';
 	const password = process.env.HUBOT_CLOUDANT_PASSWORD || 'mypassword';
@@ -44,7 +44,7 @@ const ERRORS = {
 	RUN_VIEW: 'A mock cloudant runview error'
 };
 
-var cloudantScope, cloudantErrorScope, cloudantInitErrorScope;
+let cloudantScope, cloudantErrorScope, cloudantInitErrorScope;
 
 module.exports = {
 
