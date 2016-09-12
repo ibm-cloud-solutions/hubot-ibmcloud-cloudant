@@ -49,6 +49,15 @@ function buildEnv() {
 	// Build information for Cloudant API (obtain password from password env var).
 	let password = process.env.VCAP_SERVICES_CLOUDANTNOSQLDB_0_CREDENTIALS_PASSWORD || process.env.HUBOT_CLOUDANT_PASSWORD;
 
+   // cloudantNoSQLDB service bound to application, overrides any other settings.
+   if (process.env.VCAP_SERVICES && JSON.parse(process.env.VCAP_SERVICES).cloudantNoSQLDB) {
+           let credentials = JSON.parse(process.env.VCAP_SERVICES).cloudantNoSQLDB[0].credentials;
+           account = credentials.username;
+           username = credentials.username;
+           password = credentials.password;
+   }
+
+
 	// Store api credential info
 	retEnv.api = {
 		account: account,
