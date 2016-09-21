@@ -5,6 +5,8 @@
 		{
 			"class": "bluemix.cloudant.help",
 	  		"emittarget": "bluemix.cloudant.help",
+			"description": "Help with cloudant database management",
+			"confirmprompt": "Would you like help with cloudant databases (yes or no)?",
 	  		"texts": [
 		  		"I want help with cloudant databases.",
 		  		"Can you help me with cloudant?",
@@ -15,6 +17,8 @@
   		{
 	  		"class": "bluemix.cloudant.listdatabases",
 	  		"emittarget": "bluemix.cloudant.listdatabases",
+			"description": "List cloudant databases",
+			"confirmprompt": "Would you like to list the cloudant databases (yes or no)?",
 	  		"texts": [
 	  			"Show me the cloudant databases",
 				"Show me my databases.",
@@ -26,6 +30,8 @@
   		{
 	  		"class": "bluemix.cloudant.databaseinfo",
 	  		"emittarget": "bluemix.cloudant.databaseinfo",
+			"description": "Show cloudant database details",
+			"confirmprompt": "Would you like to see details for the ${databasename} cloudant database (yes or no)?",
 	  		"texts": [
 	  			"Show me details for my cloudant database",
 				"I'd like to see information for the database",
@@ -46,6 +52,8 @@
   		{
 	  		"class": "bluemix.cloudant.createdatabase",
 	  		"emittarget": "bluemix.cloudant.createdatabase",
+			"description": "Create cloudant database",
+			"confirmprompt": "Would you like to create the ${newdatabasename} cloudant database (yes or no)?",
 	  		"texts": [
 	  			"Create a new cloudant database",
 				"I'd like to make a cloudant database",
@@ -64,6 +72,8 @@
   		{
 	  		"class": "bluemix.cloudant.setpermissions",
 	  		"emittarget": "bluemix.cloudant.setpermissions",
+			"description": "Set cloudant database permissions",
+			"confirmprompt": "Would you like to set permissions on the ${databasename} cloudant database for the user ${username} (yes or no)?",
 	  		"texts": [
 	  			"Set permissions to my cloudant database",
 				"I need to grant a user access to my database",
@@ -89,6 +99,8 @@
   		{
 	  		"class": "bluemix.cloudant.listviews",
 	  		"emittarget": "bluemix.cloudant.listviews",
+			"description": "List cloudant database views",
+			"confirmprompt": "Would you like to list the views for the ${databasename} cloudant database (yes or no)?",
 	  		"texts": [
 	  			"Show me the cloudant database views",
 				"Show me my views.",
@@ -109,6 +121,8 @@
   		{
 	  		"class": "bluemix.cloudant.runview",
 	  		"emittarget": "bluemix.cloudant.runview",
+			"description": "Run cloudant database view",
+			"confirmprompt": "Would you like to run the ${viewname} view for the ${databasename} cloudant database (yes or no)?",
 	  		"texts": [
 	  			"Run a cloudant database view",
 				"I'd like to execute a view against my cloudant database",
